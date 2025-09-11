@@ -9,6 +9,12 @@ namespace AskBot
   {
     private static readonly HttpClient _httpClient = new HttpClient();
 
+    private static readonly JsonSerializerOptions _jsonOptions = new JsonSerializerOptions
+    {
+      PropertyNamingPolicy = JsonNamingPolicy.CamelCase,
+      WriteIndented = true
+    };
+
     public static IpApi FetchIp()
     {
       try
@@ -20,21 +26,17 @@ namespace AskBot
           throw new InvalidOperationException($"Error HTTP: {statusCode}");
         }
         string json = response.Content.ReadAsStringAsync().Result;
-        var options = new JsonSerializerOptions
-        {
-          PropertyNamingPolicy = JsonNamingPolicy.CamelCase
-        };
-        IpApi ipApi = JsonSerializer.Deserialize<IpApi>(json, options);
-        Console.WriteLine($"Your IP address is: {ipApi?.Query}");
+        IpApi ipApi = JsonSerializer.Deserialize<IpApi>(json, _jsonOptions);
+        Console.WriteLine($"## Your IP address is: {ipApi?.Query}");
         string location = ipApi?.City + ", " + ipApi?.RegionName + ", " + ipApi?.Country;
-        Console.WriteLine($"Location: {location}");
+        Console.WriteLine($"- Location: {location}");
         string coordinates = "Lat " + ipApi?.Lat + ", Long " + ipApi?.Lon;
-        Console.WriteLine($"Coordinates: {coordinates}");
+        Console.WriteLine($"- Coordinates: {coordinates}");
         return ipApi;
       }
       catch (Exception ex)
       {
-        Console.WriteLine($"Exception occurred: {ex.Message}");
+        Console.WriteLine($"> Exception occurred: {ex.Message}");
         return null;
       }
     }

@@ -5,13 +5,13 @@ class Program
 {
   static void Main(string[] args)
   {
-    Console.WriteLine("Hello, World!");
+    Console.WriteLine("# Ask Bot here, welcome!");
     IpApi ip = IpApiClient.FetchIp();
     if (args.Length > 0)
     {
       if (args[0].ToLower() == "weather")
       {
-        Console.WriteLine("Fetching weather information...");
+        Console.WriteLine("## Fetching weather information...");
         var weather = new Weather();
         var weatherInfo = weather.FetchWeather();
         Console.WriteLine(weatherInfo);
@@ -30,7 +30,7 @@ class Program
 
   private static void PrintHelpMessage()
   {
-    Console.WriteLine("Available commands:");
-    Console.WriteLine("  weather   Fetch the current weather information");
+    Console.WriteLine("## Available commands:");
+    Console.WriteLine("  - `weather` :  Fetch the current weather information");
   }
 }
