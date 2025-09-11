@@ -1,9 +1,8 @@
 ---
-ID: PRD-ASKBOT-v1
-Versión: 0.1
+ID: ASK-BOT_PRD
+Curso: VSCode-Copilot-CSharp
+Arquetipo: CSharp-CLI
 Autor: Alberto Basalo
-Fecha: 2025-09-09
-Estado: draft
 ---
 
 # PRD — AskBot CLI
@@ -48,7 +47,7 @@ Excluded: interfaz gráfica, persistencia, autenticación.
   - timeapi.io
 
 ## Dependencias
-- Dotnet 7+
+- Dotnet 9+
 - APIs externas
 
 ## Criterios de aceptación
