@@ -5,7 +5,7 @@ namespace AskBot
   {
     static void Main(string[] args)
     {
-      Console.WriteLine("# Ask Bot here, welcome!");
+      Console.WriteLine("# AskBot here, welcome!");
       IpApi ip = IpApiClient.FetchIp();
       if (args.Length > 0)
       {

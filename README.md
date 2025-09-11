@@ -1,5 +1,5 @@
-# VSCode copilot CSharp Ask-Bot
-Demo laboratory for VSCode Copilot course CSharp edition
+# Copilot CSharp Ask-Bot
+Demo laboratory Copilot course CSharp edition
 
 ## Dev workflow
 
