@@ -1,16 +1,36 @@
 using System;
+using AskBot;
 
 class Program
 {
-    static void Main(string[] args)
+  static void Main(string[] args)
+  {
+    Console.WriteLine("Hello, World!");
+    IpApi ip = IpApiClient.FetchIp();
+    if (args.Length > 0)
     {
-        if (args.Length > 0)
-        {
-            Console.WriteLine($"Hello, {args[0]}!");
-        }
-        else
-        {
-            Console.WriteLine("Hello, World!");
-        }
+      if (args[0].ToLower() == "weather")
+      {
+        Console.WriteLine("Fetching weather information...");
+        var weather = new Weather();
+        var weatherInfo = weather.FetchWeather();
+        Console.WriteLine(weatherInfo);
+      }
+      else
+      {
+        PrintHelpMessage();
+      }
     }
+    else
+    {
+      PrintHelpMessage();
+    }
+    Console.WriteLine("Bye!");
+  }
+
+  private static void PrintHelpMessage()
+  {
+    Console.WriteLine("Available commands:");
+    Console.WriteLine("  weather   Fetch the current weather information");
+  }
 }
