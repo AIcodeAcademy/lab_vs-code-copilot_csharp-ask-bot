@@ -11,9 +11,9 @@ cd vscode-copilot-csharp_ask-bot
 code .
 # Open terminal 
 # Compile C# code
-dotnet build ./src/ask-bot
+dotnet build ./src/Askbot
 # Run C# code
-dotnet run --project ./src/ask-bot 
+dotnet run --project ./src/Askbot 
 ```
 
 ## AskBot CLI
