@@ -4,8 +4,7 @@ namespace AskBot
   {
     public string FetchWeather()
     {
-      // Fake implementation: returns a hardcoded weather string
-      return $"The weather is unknown yet.";
+        throw new NotImplementedException("The weather is unknown yet.");
     }
   }
 }

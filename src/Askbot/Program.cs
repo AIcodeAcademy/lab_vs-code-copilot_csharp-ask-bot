@@ -26,6 +26,7 @@ namespace AskBot
         PrintHelpMessage();
       }
       Console.WriteLine("Bye!");
+      Console.Read();
     }
 
     private static void PrintHelpMessage()
