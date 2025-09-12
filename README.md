@@ -25,6 +25,8 @@ A CLI educational tool that queries public APIs to provide basic information fro
 - time, 
 - and sun.
 
+> [Ver PRD del proyecto AskBot](docs/askbot.PRD.md)
+
 ---
 
 - Author: [Alberto Basalo](https://albertobasalo.dev)
