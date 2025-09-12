@@ -18,14 +18,9 @@ dotnet run --project ./src/Askbot -- weather
 ## AskBot CLI
 
 A CLI educational tool that queries public APIs to provide basic information from the user's IP and associated services: 
+- location, weather, currency, time, and sun.
 
-- location, 
-- weather, 
-- currency, 
-- time, 
-- and sun.
-
-> [Ver PRD del proyecto AskBot](docs/askbot.PRD.md)
+> [Ver PRD del proyecto AskBot](docs/ask-bot.PRD.md)
 
 ---
 
