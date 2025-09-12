@@ -31,17 +31,17 @@ Included: CLI con 5 comandos.
 Excluded: interfaz gráfica, persistencia, autenticación.
 
 ## Requerimientos funcionales
-1. RF-1: `/loc` muestra ciudad, país, lat/long de [`ipapi.co/json`](https://ipapi.co/json/)
-2. RF-2: `/weather` muestra temperatura, prob. lluvia, código meteorológico de [`open-meteo.com`](https://open-meteo.com/)
-3. RF-3: `/money` muestra moneda oficial + cotización en EUR/USD/GBP/CHF de [`open.er-api.com/v6`](https://open.er-api.com/v6)
-4. RF-4: `/time` muestra hora local, huso, verano/invierno, diff con UTC de [`timeapi.io`](https://timeapi.io/)
-5. RF-5: `/sun` muestra salida y puesta de sol de [`open-meteo.com`](https://open-meteo.com/)
+1. RF-1: `/loc` muestra ciudad, país, lat/long de [ipapi.co](https://ipapi.co/json/) o [ip-api.com](http://ip-api.com/json/)
+2. RF-2: `/weather` muestra temperatura, prob. lluvia, código meteorológico de [open-meteo.com](https://open-meteo.com/)
+3. RF-3: `/money` muestra moneda oficial + cotización en EUR/USD/GBP/CHF de [open.er-api.com/v6](https://open.er-api.com/v6)
+4. RF-4: `/time` muestra hora local, huso, verano/invierno, diff con UTC de [timeapi.io](https://timeapi.io/)
+5. RF-5: `/sun` muestra salida y puesta de sol de [open-meteo.com](https://open-meteo.com/)
 
 ## Requerimientos no funcionales
 - Simplicidad ante todo.
 - Respuesta <1s con conexión activa.
 - Uso de APIs públicas gratuitas:
-  - ipapi.co
+  - ipapi.co o ip-api.com
   - open-meteo.com
   - open.er-api.com/v6
   - timeapi.io
@@ -52,7 +52,7 @@ Excluded: interfaz gráfica, persistencia, autenticación.
 
 ## Criterios de aceptación
 - Cada comando devuelve datos legibles.
-- CLI ejecutable con `dotnet run /command`.
+- CLI ejecutable con `dotnet run <command>`.
 
 ## Riesgos
 - APIs caídas → fallback genérico.
