@@ -1,27 +1,32 @@
-# Copilot CSharp Ask-Bot
+# Copilot CSharp
 Demo laboratory Copilot course CSharp edition
 
 ## Dev workflow
 
 ```bash
 # Clone repository
-git clone https://github.com/AlbertoBasaloLabs/vscode-copilot-csharp_ask-bot.git
-cd vscode-copilot-csharp_ask-bot
-# Open in VSCode
-code .
-# Open terminal 
+git clone https://github.com/AlbertoBasaloLabs/copilot-csharp.git
+cd copilot-csharp
 # Compile C# code
 dotnet build ./src/Askbot
 # Run C# code
 dotnet run --project ./src/Askbot 
+# The weather command
+dotnet run --project ./src/Askbot -- weather
 ```
 
 ## AskBot CLI
 
-A CLI educational tool that queries public APIs to provide basic information about the user's IP and associated services: location, weather, currency, time, and sun.
+A CLI educational tool that queries public APIs to provide basic information from the user's IP and associated services: 
+
+- location, 
+- weather, 
+- currency, 
+- time, 
+- and sun.
 
 ---
 
 - Author: [Alberto Basalo](https://albertobasalo.dev)
 - Academy: [Academy Organization](https://github.com/AlbertoBasaloAcademy)
-- Laboratory: [Source Repository](https://github.com/AlbertoBasaloLabs/vscode-copilot-csharp_ask-bot)
+- Laboratory: [Source Repository](https://github.com/AlbertoBasaloLabs/copilot-csharp)
