@@ -1,6 +1,9 @@
 namespace AskBot
 {
-  public record IpApi(
+    /// <summary>
+    /// Representa la respuesta de la API de geolocalización por IP.
+    /// </summary>
+    public record IpApi(
     string Query,
     string Status,
     string Country,
