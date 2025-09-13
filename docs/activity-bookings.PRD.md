@@ -6,27 +6,33 @@ Autor: 'Alumnos'
 ---
 # PRD — Activity Bookings API
 
-### 1. Resumen Ejecutivo
+## 1. Resumen Ejecutivo
 
 API REST para gestionar reservas de actividades turísticas. El objetivo es que los alumnos implementen un **CRUD** (Crear, Leer, Actualizar, Borrar) básico, persistan los datos en archivos (JSON, CSV o XML). La solución no requerirá autenticación, servicios de terceros ni el uso de una base de datos.
 
-#### 1.1 Objetivos y Métricas
+### 1.1 Objetivos y Métricas
 
   * Desarrollar una API REST funcional con todos los **endpoints** operativos de forma local.
   * Lograr que la aplicación sea ejecutable con el comando `dotnet run`.
   * Implementar **tests unitarios** y de integración para validar el comportamiento de la API.
 
-#### 1.2 Audiencia
+### 1.2 Audiencia
 
   * **Alumnos:** Para adquirir experiencia práctica.
   * **Instructores:** Para utilizar como guía y validar el aprendizaje.
 
-### 2. Alcance
+### 1.3 Tecnologías
+  * **Lenguaje:** C# con .NET 9+.
+  * **Librerías:** Mínimas, preferiblemente solo `System.Net.Http` y `System.Text.Json`.
+  * **Herramientas:** Visual Studio Code, o Visual Studio con .NET CLI
+  * **Despliegue:** Servicio ejecutable en localhost con el comando `dotnet run`.
+
+## 2. Alcance
 
   * **Incluido:** API REST con un CRUD básico sobre archivos JSON, CSV o XML.
   * **Excluido:** Autenticación, pagos, notificaciones, bases de datos.
 
-#### 2.1 Historias de Usuario
+### 2.1 Historias de Usuario
 
   * Como usuario, quiero listar todas las actividades ofertadas.
   * Como usuario, quiero ver detalles de una actividad específica.
@@ -34,7 +40,7 @@ API REST para gestionar reservas de actividades turísticas. El objetivo es que 
   * Como usuario, quiero ver todas mis reservas.
   * Como usuario, quiero cancelar una reserva existente.
 
-#### 2.2 Requisitos Funcionales
+### 2.2 Requisitos Funcionales
 
 1.  **RF-1:** `GET /activities` - Lista todas las actividades disponibles.
 2.  **RF-2:** `GET /activities/{id}` - Muestra detalles de una actividad específica.
@@ -42,13 +48,13 @@ API REST para gestionar reservas de actividades turísticas. El objetivo es que 
 4.  **RF-4:** `GET /bookings` - Lista todas las reservas existentes.
 5.  **RF-5:** `DELETE /bookings/{id}` - Cancela una reserva.
 
-#### 2.3 Requisitos Funcionales Adicionales
+### 2.3 Requisitos Funcionales Adicionales
 
 6.  **RF-6:** `GET /activities/{id}/bookings` - Lista todas las reservas de una actividad específica.
 7.  **RF-7:** `PUT /bookings/{id}` - Actualiza una reserva existente.
 8.  **RF-8:** `GET /activities?status={status}` - Filtra las actividades por estado (ej. `disponible`, `finalizada`).
 
-#### 2.4 Requisitos No Funcionales
+### 2.4 Requisitos No Funcionales
 
   * **Simplicidad:** Priorizar la claridad y la simplicidad en la implementación.
   * **Diseño:** La API debe seguir un diseño RESTful con rutas claras y consistentes.
@@ -56,11 +62,9 @@ API REST para gestionar reservas de actividades turísticas. El objetivo es que 
   * **Persistencia:** Utilizar ficheros JSON, CSV o XML para almacenar los datos.
   * **Tecnologías:** Utilizar Dotnet 9+ y librerías NuGet mínimas.
 
------
+## 3. Modelo de Datos y Reglas de Negocio
 
-### 3. Modelo de Datos y Reglas de Negocio
-
-#### 3.1 Esquema de Datos
+### 3.1 Esquema de Datos
 
   * **Actividad:**
 
@@ -80,35 +84,34 @@ API REST para gestionar reservas de actividades turísticas. El objetivo es que 
       * `fechaReserva` (datetime)
       * `estado` (string: `confirmada`, `cancelada`)
 
-#### 3.2 Relaciones
+### 3.2 Relaciones
 
   * Una **Actividad** puede tener múltiples **Reservas**.
   * Una **Reserva** está asociada a una única **Actividad**.
 
-#### 3.3 Reglas de Negocio
+### 3.3 Reglas de Negocio
 
   * No se pueden reservar actividades con estado `finalizada` o `completo`.
   * Una reserva no puede ser cancelada si faltan menos de 48 horas para el inicio de la actividad.
   * Si se alcanza la `capacidad` máxima de una actividad, su estado debe cambiar a `completo`.
   * Si no se alcanza el `quorum` 48 horas antes de la actividad, esta debe cancelarse automáticamente y notificar a los usuarios (simulado con un log).
 
-### 4. Criterios de Aceptación y Riesgos
+## 4. Criterios de Aceptación y Riesgos
 
-#### 4.1 Criterios de Aceptación
+### 4.1 Criterios de Aceptación
 
   * Cada endpoint devuelve datos legibles en formato JSON.
-  * La API puede ser ejecutada con `dotnet run` sin errores.
+  * La API puede ser ejecutada sin errores.
   * Los tests unitarios y de integración pasan correctamente.
   * Se manejan adecuadamente los errores de I/O (lectura/escritura de archivos).
 
-#### 4.2 Riesgos
+### 4.2 Riesgos
 
   * Errores en la manipulación de ficheros (lectura/escritura) que pueden corromper los datos.
 
+## 5. Datos de Ejemplo (Seed Data)
 
-### 5. Datos de Ejemplo (Seed Data)
-
-#### 5.1 Actividades
+### 5.1 Actividades
 
 ```json
 [
@@ -153,7 +156,7 @@ id,nombre,precio,fecha,estado,capacidad,quorum
 </actividades>
 ```
 
-#### 5.2 Reservas
+### 5.2 Reservas
 
 ```json
 [
