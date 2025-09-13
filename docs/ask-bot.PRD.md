@@ -6,123 +6,176 @@ Autor: 'Alberto Basalo'
 ---
 # PRD — AskBot CLI
 
-### 1. Resumen Ejecutivo
+## 1. Resumen Ejecutivo
 
-CLI educativo que consulta APIs públicas para dar información básica de la IP del usuario y servicios asociados: localización, clima, moneda, hora y sol. El objetivo es que los alumnos implementen un **cliente de APIs REST** funcional que demuestre el consumo de servicios externos y el manejo de datos JSON.
+CLI educativo que consulta APIs públicas para dar información básica de la IP del usuario y servicios asociados: localización, clima, moneda, hora y sol. El objetivo es mostrar a los alumnos un **programa de terminal** funcional que demuestre el consumo de servicios externos y el manejo de datos JSON.
 
-#### 1.1 Objetivos y Métricas
+### 1.1 Objetivos y Métricas
 
   * Desarrollar una aplicación CLI funcional con todos los **comandos** operativos de forma local.
-  * Lograr que la aplicación sea ejecutable con el comando `dotnet run <command>`.
   * Demostrar el consumo exitoso de **APIs REST** públicas y gratuitas.
   * Implementar manejo de errores para servicios externos no disponibles.
 
-#### 1.2 Audiencia
+### 1.2 Audiencia
 
   * **Alumnos:** Para adquirir experiencia práctica en consumo de APIs.
   * **Instructores:** Para utilizar como guía y validar el aprendizaje.
 
-### 2. Alcance
+### 1.3 Tecnologías
+  * **Lenguaje:** C# con .NET 9+.
+  * **Librerías:** Mínimas, preferiblemente solo `System.Net.Http` y `System.Text.Json`.
+  * **Herramientas:** Visual Studio Code, o Visual Studio con .NET CLI
+  * **Despliegue:** Aplicación ejecutable con el comando `dotnet run <command>`.
 
-  * **Incluido:** CLI con 5 comandos principales para consultar información de geolocalización, clima, moneda, tiempo y datos solares.
+## 2. Alcance
+
+  * **Incluido:** CLI con 4 comandos principales para consultar información de geolocalización, clima, moneda y datos solares.
   * **Excluido:** Interfaz gráfica, persistencia de datos, autenticación, notificaciones.
 
-#### 2.1 Historias de Usuario
+### 2.1 Historias de Usuario
 
   * Como usuario, quiero saber mi localización actual a partir de mi IP.
   * Como usuario, quiero conocer el pronóstico de hoy en mi ciudad.
   * Como usuario, quiero ver la moneda oficial de mi país y cotizaciones básicas.
-  * Como usuario, quiero conocer mi hora local y diferencia con UTC.
   * Como usuario, quiero saber las horas de salida y puesta del sol.
 
-#### 2.2 Requisitos Funcionales
+### 2.2 Requisitos Funcionales
 
 1.  **RF-1:** `loc` o `[vacío]` - Muestra ciudad, país, latitud/longitud obtenidos de [ipapi.co](https://ipapi.co/json/) o [ip-api.com](http://ip-api.com/json/).
 2.  **RF-2:** `weather` - Muestra temperatura actual, probabilidad de lluvia y código meteorológico desde [open-meteo.com](https://open-meteo.com/).
-3.  **RF-3:** `money` - Muestra moneda oficial del país y cotización en EUR/USD/GBP/CHF desde [open.er-api.com/v6](https://open.er-api.com/v6).
-4.  **RF-4:** `time` - Muestra hora local, huso horario, horario de verano/invierno y diferencia con UTC desde [timeapi.io](https://timeapi.io/).
-5.  **RF-5:** `sun` - Muestra horas de salida y puesta del sol desde [open-meteo.com](https://open-meteo.com/).
+3.  **RF-3:** `money` - Muestra moneda oficial del país y cotización en EUR/USD/GBP/CHF desde [frankfurter.dev](https://api.frankfurter.dev/v1/latest).
+4.  **RF-4:** `sun` - Muestra horas de salida y puesta del sol desde [open-meteo.com](https://open-meteo.com/).
 
-#### 2.3 Requisitos Funcionales Adicionales
+### 2.3 Requisitos Funcionales Adicionales
 
-6.  **RF-6:** `askbot help` - Muestra ayuda con la lista de comandos disponibles y su descripción.
-7.  **RF-7:** `askbot --version` - Muestra la versión actual de la aplicación.
-8.  **RF-8:** Todos los comandos deben manejar errores de conectividad y mostrar mensajes informativos.
+5.  **RF-5:** `askbot help` - Muestra ayuda con la lista de comandos disponibles y su descripción.
+6.  **RF-6:** `askbot --version` - Muestra la versión actual de la aplicación.
+7.  **RF-7:** Todos los comandos deben manejar errores de conectividad y mostrar mensajes informativos.
 
-#### 2.4 Requisitos No Funcionales
+### 2.4 Requisitos No Funcionales
 
   * **Simplicidad:** Priorizar la claridad y la simplicidad en la implementación y uso.
   * **Rendimiento:** Las respuestas de la CLI deben ser rápidas, preferiblemente en menos de 1 segundo con conexión activa.
   * **Disponibilidad:** Manejar amigablemente la no disponibilidad de servicios externos.
   * **Usabilidad:** Comandos intuitivos y mensajes de error claros y útiles.
-  * **Tecnologías:** Utilizar Dotnet 9+ y librerías NuGet mínimas.
 
------
 
-### 3. Modelo de Datos y APIs
+## 3. Modelo de Datos y APIs
 
-#### 3.1 APIs Utilizadas
+### 3.1 Geolocalización:
 
-  * **Geolocalización:**
-      * `ipapi.co/json/` - Información de ubicación basada en IP
-      * `ip-api.com/json/` - API alternativa para geolocalización
+- `curl http://ip-api.com/json/` 
 
-  * **Clima:**
-      * `open-meteo.com` - Datos meteorológicos actuales y predicciones
+```json
+{
+  "status": "success",
+  "country": "Spain",
+  "countryCode": "ES",
+  "region": "GA",
+  "regionName": "Galicia",
+  "city": "A Coruña",
+  "zip": "15009",
+  "lat": 43.3626,
+  "lon": -8.4012,
+  "timezone": "Europe/Madrid",
+  "isp": "Telefonica de Espana SAU",
+  "org": "RIMA (Red IP Multi Acceso)",
+  "as": "AS3352 TELEFONICA DE ESPANA S.A.U.",
+  "query": "81.39.197.0"
+}
+```
 
-  * **Moneda:**
-      * `open.er-api.com/v6` - Tasas de cambio de divisas
+### 3.2 Clima:
+- `curl "https://api.open-meteo.com/v1/forecast?latitude=43.3626&longitude=-8.4012&current_weather=true"`
+```json
+{
+  "latitude": 43.3626,
+  "longitude": -8.4012,
+  "generationtime_ms": 0.02491474151611328,
+  "utc_offset_seconds": 0,
+  "timezone": "GMT",
+  "timezone_abbreviation": "GMT",
+  "elevation": 0,
+  "current_units": {
+    "time": "iso8601",
+    "interval": "seconds",
+    "temperature": "°C"
+  },
+  "current": {
+    "time": "2025-09-13T06:45",
+    "interval": 900,
+    "temperature": 14.3
+  }
+}
+```
 
-  * **Tiempo:**
-      * `timeapi.io` - Información de zona horaria y tiempo
+### 3.3 Moneda:
+- `curl https://api.frankfurter.dev/v1/latest` - Tasas de cambio de divisas
 
-#### 3.2 Estructura de Respuestas Esperadas
+```json
+{
+  "amount": 1.0,
+  "base": "EUR",
+  "date": "2024-09-13",
+  "rates": {
+    "USD": 1.08,
+    "GBP": 0.86,
+    "CHF": 0.97
+  }
+}
+```
 
-  * **Comando `loc`:**
-      * Ciudad, País
-      * Latitud, Longitud
-      * Código de país (ISO)
+### 3.4 Sol:
+- `curl "https://api.open-meteo.com/v1/forecast?latitude=52.52&longitude=13.419998&daily=sunrise,sunset&timezone=Europe%2FBerlin"` - Información de salida y puesta del sol
 
-  * **Comando `weather`:**
-      * Temperatura actual (°C)
-      * Probabilidad de precipitación (%)
-      * Descripción del clima
+```json
+{
+  "latitude": 52.52,
+  "longitude": 13.419998,
+  "generationtime_ms": 0.006198883056640625,
+  "utc_offset_seconds": 7200,
+  "timezone": "Europe/Berlin",
+  "timezone_abbreviation": "GMT+2",
+  "elevation": 38,
+  "daily_units": {
+    "time": "iso8601",
+    "sunrise": "iso8601",
+    "sunset": "iso8601"
+  },
+  "daily": {
+    "time": [
+      "2025-09-13"
+    ],
+    "sunrise": [
+      "2025-09-13T06:37"
+    ],
+    "sunset": [
+      "2025-09-13T19:26"
+    ]
+  }
+}
+```
 
-  * **Comando `money`:**
-      * Moneda local (código y nombre)
-      * Cotizaciones vs EUR, USD, GBP, CHF
+## 4. Criterios de Aceptación y Riesgos
 
-  * **Comando `time`:**
-      * Hora local actual
-      * Zona horaria
-      * Diferencia con UTC
-      * Estado horario de verano
-
-  * **Comando `sun`:**
-      * Hora de salida del sol
-      * Hora de puesta del sol
-      * Duración del día
-
-### 4. Criterios de Aceptación y Riesgos
-
-#### 4.1 Criterios de Aceptación
+### 4.1 Criterios de Aceptación
 
   * Cada comando devuelve datos legibles en formato texto estructurado.
-  * La CLI puede ser ejecutada con `dotnet run <command>` sin errores.
+  * La CLI puede ser ejecutada desde terminal sin errores.
   * Se manejan adecuadamente los errores de conectividad y APIs no disponibles.
   * Los comandos responden en menos de 3 segundos en condiciones normales.
   * La aplicación muestra mensajes de ayuda claros cuando se ejecuta sin parámetros.
 
-#### 4.2 Riesgos
+### 4.2 Riesgos
 
   * **APIs externas no disponibles:** Implementar mensajes de fallback informativos.
   * **Límites de uso de APIs:** Informar al usuario sobre posibles restricciones.
   * **Conectividad de red:** Manejar timeouts y errores de conexión graciosamente.
   * **Cambios en APIs:** Las APIs públicas pueden cambiar su estructura sin previo aviso.
 
-### 5. Datos de Ejemplo
+## 5. Ejemplos de Salida
 
-#### 5.1 Ejemplo de Salida - Comando `loc`
+### 5.1 Comando `loc`
 ```
 📍 Ubicación:
    Ciudad: Madrid
@@ -130,7 +183,7 @@ CLI educativo que consulta APIs públicas para dar información básica de la IP
    Coordenadas: 40.4168, -3.7038
 ```
 
-#### 5.2 Ejemplo de Salida - Comando `weather`
+### 5.2 Comando `weather`
 ```
 🌤️ Clima en Madrid:
    Temperatura: 22°C
@@ -138,7 +191,7 @@ CLI educativo que consulta APIs públicas para dar información básica de la IP
    Condición: Parcialmente nublado
 ```
 
-#### 5.3 Ejemplo de Salida - Comando `money`
+### 5.3 Comando `money`
 ```
 💰 Moneda: Euro (EUR)
    1 EUR = 1.00 EUR
@@ -147,7 +200,7 @@ CLI educativo que consulta APIs públicas para dar información básica de la IP
    1 EUR = 0.97 CHF
 ```
 
-#### 5.4 Ejemplo de Salida - Comando `time`
+### 5.4 Comando `time`
 ```
 🕐 Hora Local:
    Actual: 14:30:25
@@ -155,7 +208,7 @@ CLI educativo que consulta APIs públicas para dar información básica de la IP
    UTC+2 (Horario de verano)
 ```
 
-#### 5.5 Ejemplo de Salida - Comando `sun`
+### 5.5 Comando `sun`
 ```
 ☀️ Info Solar:
    Amanecer: 07:45
