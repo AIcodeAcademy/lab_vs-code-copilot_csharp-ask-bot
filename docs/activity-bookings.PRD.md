@@ -22,7 +22,7 @@ API REST para gestionar reservas de actividades turísticas. El objetivo es que 
   * **Instructores:** Para utilizar como guía y validar el aprendizaje.
 
 ### 1.3 Tecnologías
-  * **Lenguaje:** C# con .NET 9+.
+  * **Lenguaje:** C# con .NET 9+. [ASP.NET Core](https://learn.microsoft.com/en-us/aspnet/core/tutorials/min-web-api?view=aspnetcore-9.0&tabs=visual-studio)
   * **Librerías:** Mínimas, preferiblemente solo `System.Net.Http` y `System.Text.Json`.
   * **Herramientas:** Visual Studio Code, o Visual Studio con .NET CLI
   * **Despliegue:** Servicio ejecutable en localhost con el comando `dotnet run`.
